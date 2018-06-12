@@ -1,8 +1,15 @@
 
 import * as actionTypes from '../actions/actTypes';
+import { updateObject } from './utility';
 
 const initialState = {
     results: []
+}
+
+//helper function
+const deleteResult = (state, action) => {
+    const updatedArray = state.results.filter(result => result.id !== action.resultElementId); //filter returns new array
+    return updateObject( state, {results: updatedArray})
 }
 
 const reducer = (state = initialState, action) => {
@@ -23,12 +30,15 @@ const reducer = (state = initialState, action) => {
             // newArray.splice(id, 1);
 
             //option 2
-            const updatedArray = state.results.filter(result => result.id !== action.resultElementId); //filter returns new array
+            // const updatedArray = state.results.filter(result => result.id !== action.resultElementId); //filter returns new array
 
-            return {
-                ...state,
-                results: updatedArray
-            }
+            // return {
+            //     ...state,
+            //     results: updatedArray
+            // }
+
+            //option 3: using helper functions, for leaner code (optional)
+            return deleteResult(state, action);
     }
 
     return state;
