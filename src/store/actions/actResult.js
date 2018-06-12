@@ -9,7 +9,11 @@ export const saveResult = ( result ) => {
 
 export const storeResult = (result) => {
     //middleware (thunk), happens between dispatch and reducer
-    return dispatch => {
+    return (dispatch, getState) => {
+        //second parameter allow us to access the state
+        //can be used to access state before dispatching action
+        const oldCounter = getState().counter.counter;
+        console.log(oldCounter);
         //thunk middleware catches this function, holds on to it, 
         //runs the function passed below, then runs the second function
         setTimeout(() => {
